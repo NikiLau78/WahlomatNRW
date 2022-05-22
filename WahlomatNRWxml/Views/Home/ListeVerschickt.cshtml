@@ -1,0 +1,26 @@
+﻿@model WahlomatNRWxml.Models.Stimmen
+
+<h5 class="text-success">Stimmzettel erfolgreich übermittelt</h5>
+<h3 class="text-danger">@DatenAufbereitung.stimmen.Count() Wähler haben sich beteiligt !</h3>
+<h5 class="text-success">Optimierte Wahlliste</h5>
+
+<table class="table table-bordered table-striped table-sm ">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Partei</th>
+            <th>Anzahl</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (StimmZettelzaehler sz in DatenAufbereitung.zaehler)
+        {
+            <tr>
+                <td>@sz.Erststimme</td>
+                <td>@sz.Zweitstimme</td>
+                <td>@sz.Zaehler</td>
+            </tr>
+        }
+    </tbody>
+</table>

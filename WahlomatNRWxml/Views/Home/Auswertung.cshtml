@@ -1,0 +1,119 @@
+﻿@model WahlomatNRWxml.Models.Stimmen
+
+    <h5 class="bg-success text-white text-center m-2 p-2">Vorläufige Auswertung</h5>
+    <h5>Anzahl Stimmen:</h5>
+    <ul>
+        <li><h3 class="text-danger">@DatenAufbereitung.stimmen.Count()</h3></li>
+    </ul>
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <h5>Welche Spitzenkandidaten:</h5>
+                <ul>
+                    @foreach (string s in Wahldaten.spitzenKandidaten)
+                    {
+                        <li>@s</li>
+                    }
+                </ul>
+            </div>
+            <div class="col">
+                <h5>Welche Parteien:</h5>
+                <ul>
+                    @foreach (string p in Wahldaten.parteien)
+                    {
+                        <li>@p</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h5>Auswertung</h5>
+        
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Stimmen</th>
+                                <th>Prozent</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (string s in Wahldaten.spitzenKandidaten)
+                            {
+                                <tr>
+                                    <td>@s</td>
+                                    <td>@DatenAufbereitung.WahlErgebnisSK(s)</td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisSKProzent(s))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@DatenAufbereitung.WahlErgebnisSKProzent(s) %</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col">
+                    <table class="table table-bordered table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Partei</th>
+                                <th>Stimmen</th>
+                                <th>Prozent</th>     
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (string p in Wahldaten.parteien)
+                            {
+                                <tr>
+                                    <td>@p</td>
+                                    <td>@DatenAufbereitung.WahlErgebnisPT(p)</td>
+                                    <td>
+                                        @if (p == "FDP")
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                        else if (p == "SPD")
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                        else if (p == "CDU")
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-dark" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                        else if (p == "Bündnis 90 - die Grünen")
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                        else if (p == "AFD")
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-primary" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="progress">
+                                                <div class="progress-bar bg-secondary" role="progressbar" style="width: @Math.Round(DatenAufbereitung.WahlErgebnisPTProzent(p))%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">@(DatenAufbereitung.WahlErgebnisPTProzent(p)) %</div>
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+

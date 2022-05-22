@@ -1,0 +1,70 @@
+﻿
+@model WahlomatNRWxml.Models.Stimmen
+    <h5 class="bg-danger text-white text-center m-2 p-2">Wahl Zettel</h5>
+    
+    <form asp-action="Waehlen" method="post" class="m-2 border border-danger">
+        <div class="container">
+            <div class="row align-items-start">
+                <div class="col text-center">
+                    <h5 class="bg-success text-white text-center m-2 p-2">*** ERSTSTIMME ***</h5>
+                    <select asp-for="Erststimme" class="form-select" aria-label="Default select example">
+                        <option selected>Wählen sie Ihren Kandidaten</option>
+                        @for (int i = 0; i < Wahldaten.spitzenKandidaten.Length; i++)
+                        {
+                            <option value="@Wahldaten.spitzenKandidaten[i]">@Wahldaten.spitzenKandidaten[i]</option>
+                        }
+                    </select>
+                </div>
+                <div class="col text-center">
+                    <h5 class="bg-success text-white text-center m-2 p-2">*** ZWEITSTIMME ***</h5>
+                    <select asp-for="Zweitstimme" class="form-select" aria-label="Default select example">
+                        <option selected>Geben sie der Partei eine Stimme</option>
+                        @for (int i = 0; i < Wahldaten.parteien.Length; i++)
+                        {
+                            <option value="@Wahldaten.parteien[i]">@Wahldaten.parteien[i]</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        <div class="col text-center">
+            <button type="submit" class="btn btn-outline-danger m-2" >Wahl abschließen</button>
+        </div>
+    </form>
+
+            <h5 class="bg-success text-white text-center p-2">Stimmengenerator</h5>
+            <div class="container">
+                <div class="row">
+                    <div class="col align-self-start">
+                        <button asp-action="Waehlen1000" type="submit" class="btn btn-danger">+ 1.000 Stimmen</button>
+                    </div>
+                    <div class="col align-self-center">
+                        <button asp-action="Waehlen10000" type="submit" class="btn btn-danger">+ 10.000 Stimmen</button>
+                    </div>
+                    <div class="col align-self-end">
+                        <button asp-action="Waehlen100000" type="submit" class="btn btn-danger">+ 100.000 Stimmen</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center p-2">
+                <h2 class="text-black-50">Vorläufige Wahlliste</h2>
+                <button asp-action="ClearList" type="submit" class="btn btn-outline-success m-2">Liste leeren</button>
+
+                <table class="table table-bordered table-striped table-sm ">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Partei</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        @foreach (Stimmen s in DatenAufbereitung.stimmen)
+                        {
+                            <tr>
+                                <td>@s.Erststimme</td>
+                                <td>@s.Zweitstimme</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
